@@ -2,8 +2,9 @@ import pygame
 from settings import *
 
 class Piece:
+    # initializes the piece
     def __init__(self, colour, row, col, img_name, val):
-        # since the pieces are 80px and the squares are 100px, we must offset their position by 10 to be centered
+        # since the pieces are 80px and the squares are 100px, we must offset their position by 10 to be centered in their square
         self.POS_OFFSET = 10
         self.colour = colour
         self.row = row
@@ -16,18 +17,15 @@ class Piece:
     
     '''
     Draws the piece.
-    Args: pygame screen
-    Returns: None.    
+    Args(pygame screen)
+    Returns(None)  
     '''
     def draw(self, screen):
         screen.blit(self.image, (self.col*SQ_WIDTH + self.POS_OFFSET, self.row*SQ_HEIGHT + self.POS_OFFSET))
-        
-
 
 class Pawn(Piece):
     def __init__(self, colour, row, col, img_name):
         super().__init__(colour, row, col, img_name, val=1)
-        self.possible_moves = []
 
 class Bishop(Piece):
     def __init__(self, colour, row, col, img_name):
@@ -48,4 +46,3 @@ class Queen(Piece):
 class King(Piece):
     def __init__(self, colour, row, col, img_name):
         super().__init__(colour, row, col, img_name, val=10000)
-        
