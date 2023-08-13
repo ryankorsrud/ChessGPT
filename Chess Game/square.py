@@ -10,6 +10,7 @@ class Square:
         self.colour = LIGHT_BEIGE if (row+col)%2 == 0 else GREEN
         self.rect = pygame.Rect(col*SQ_WIDTH, row*SQ_HEIGHT, SQ_WIDTH, SQ_HEIGHT)
     
+
     '''
     Draws the square.
     Args: pygame screen
