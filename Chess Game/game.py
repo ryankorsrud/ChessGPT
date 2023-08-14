@@ -11,6 +11,8 @@ class Game:
         self.running = True
         self.board = Board()
         self.players_turn = 'white' # white always starts
+        self.selected_piece = None
+        self.selected_piece_moves = []
 
         self.run()
 
@@ -38,9 +40,17 @@ class Game:
                     piece = self.board.squares[clicked_row][clicked_col].piece
                     
                     if piece.colour == self.players_turn: # checks if that piece belongs to the player who clicked it
-                        moves = self.board.get_moves(piece, clicked_row, clicked_col)
-                        print(moves)
-                    
+                        self.selected_piece_moves = self.board.get_moves(piece, clicked_row, clicked_col)
+                        self.selected_piece = piece
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                move = [event.pos[1]//SQ_WIDTH, event.pos[0]//SQ_HEIGHT]
+                if self.selected_piece != None:
+                    if move in self.selected_piece_moves:
+                        self.board.move(self.selected_piece, move[0], move[1])
+                        
+
+
             # exits the game
             elif event.type == pygame.QUIT:
                 pygame.quit()
