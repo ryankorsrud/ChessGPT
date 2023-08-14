@@ -61,7 +61,7 @@ class Board:
     Returns(None)
     '''
     def draw(self, screen):
-        for row in self.squares:
+        for row in self.squares:            
             for square in row:
                 square.draw(screen)
     
@@ -156,3 +156,15 @@ class Board:
             return line_moves(horizontal_and_vertical_directions)
         elif isinstance(piece, Queen):
             return line_moves(diagonal_directions+horizontal_and_vertical_directions)
+    
+    '''
+    Moves a piece on the board.
+    Args(Piece: piece, int:row, int:col)
+    Returns(None)
+    '''
+    def move(self, piece, row, col):
+        initial_square = Square(piece.row, piece.col)
+        piece.row = row
+        piece.col = col
+        final_square = Square(row, col, piece)
+        self.squares[row][col], self.squares[initial_square.row][initial_square.col] = final_square, initial_square
