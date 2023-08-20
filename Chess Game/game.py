@@ -48,8 +48,6 @@ class Game:
                 if self.selected_piece != None:
                     if move in self.selected_piece_moves:
                         self.board.move(self.selected_piece, move[0], move[1])
-                        
-
 
             # exits the game
             elif event.type == pygame.QUIT:
