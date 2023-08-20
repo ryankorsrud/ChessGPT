@@ -1,4 +1,4 @@
-# Red7 Card Game
+# Chess Pygame
 
 A python program to play the game chess.
 
