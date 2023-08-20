@@ -24,8 +24,9 @@ class Piece:
         screen.blit(self.image, (self.col*SQ_WIDTH + self.POS_OFFSET, self.row*SQ_HEIGHT + self.POS_OFFSET))
 
 class Pawn(Piece):
-    def __init__(self, colour, row, col, img_name):
+    def __init__(self, colour, row, col, img_name, has_moved=False):
         super().__init__(colour, row, col, img_name, val=1)
+        self.has_moved = has_moved
 
 class Bishop(Piece):
     def __init__(self, colour, row, col, img_name):

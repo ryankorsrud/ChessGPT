@@ -80,6 +80,32 @@ class Board:
             return (0 <= r <= 7) and (0 <= c <= 7)
         
         '''
+        Gets the valid moves for a pawn
+        Args(None)
+        Returns(List[List[int]])
+        '''
+        def pawn_moves():
+            possible_moves = []
+            if not self.squares[row-1][col].piece: # pawns cannot capture pieces vertically so if a piece is already their it cannot move
+                possible_moves.append([-1,0])
+            if not piece.has_moved and not self.squares[row-1][col].piece and not self.squares[row-2][col].piece:
+                possible_moves.append([-2, 0])
+            if self.squares[row-1][col-1].piece:
+                if self.squares[row-1][col-1].piece.colour != piece.colour: # piece doesnt belong to the player
+                    possible_moves.append([-1,-1])
+            if self.squares[row-1][col+1].piece:
+                if self.squares[row-1][col+1].piece.colour != piece.colour: # piece doesnt belong to the player
+                    possible_moves.append([-1,1])
+            
+            valid_moves = []
+            for move in possible_moves:
+                r, c = move[0]+row, move[1]+col
+                if in_range(r, c):
+                    valid_moves.append([r,c])
+            return valid_moves
+
+
+        '''
         Gets a list of the valid king moves
         Args(None)
         Returns(List[List[int]])
@@ -112,7 +138,7 @@ class Board:
         def knight_moves():
             possible_moves = [[-1, 2], [-1, -2], [1, 2], [1, -2], [-2, 1], [-2,-1], [2, 1], [2, -1]]
             
-            # parses the possible moves for onlyt valid moves
+            # parses the possible moves for only valid moves
             valid_moves = []
             for move in possible_moves:
                 r, c = move[0]+row, move[1]+col
@@ -148,7 +174,9 @@ class Board:
 
         if isinstance(piece, King):
             return king_moves()
-        if isinstance(piece, Knight):
+        elif isinstance(piece, Pawn):
+            return pawn_moves()
+        elif isinstance(piece, Knight):
             return knight_moves()
         elif isinstance(piece, Bishop):
             return line_moves(diagonal_directions)
@@ -163,6 +191,8 @@ class Board:
     Returns(None)
     '''
     def move(self, piece, row, col):
+        if isinstance(piece, Pawn):
+            piece.has_moved = True
         initial_square = Square(piece.row, piece.col)
         piece.row = row
         piece.col = col
