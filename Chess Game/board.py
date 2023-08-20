@@ -86,16 +86,16 @@ class Board:
         '''
         def pawn_moves():
             possible_moves = []
-            if not self.squares[row-1][col].piece: # pawns cannot capture pieces vertically so if a piece is already their it cannot move
-                possible_moves.append([-1,0])
-            if not piece.has_moved and not self.squares[row-1][col].piece and not self.squares[row-2][col].piece:
-                possible_moves.append([-2, 0])
-            if self.squares[row-1][col-1].piece:
-                if self.squares[row-1][col-1].piece.colour != piece.colour: # piece doesnt belong to the player
-                    possible_moves.append([-1,-1])
-            if self.squares[row-1][col+1].piece:
-                if self.squares[row-1][col+1].piece.colour != piece.colour: # piece doesnt belong to the player
-                    possible_moves.append([-1,1])
+            if not self.squares[row+piece.dir][col].piece: # pawns cannot capture pieces vertically so if a piece is already their it cannot move
+                possible_moves.append([piece.dir, 0])
+            if not piece.has_moved and not self.squares[row+piece.dir][col].piece and not self.squares[row+(2*piece.dir)][col].piece:
+                possible_moves.append([2 * piece.dir, 0])
+            if self.squares[row+piece.dir][col-1].piece:
+                if self.squares[row+piece.dir][col-1].piece.colour != piece.colour: # piece doesnt belong to the player
+                    possible_moves.append([piece.dir,-1])
+            if self.squares[row+piece.dir][col+1].piece:
+                if self.squares[row+piece.dir][col+1].piece.colour != piece.colour: # piece doesnt belong to the player
+                    possible_moves.append([piece.dir,1])
             
             valid_moves = []
             for move in possible_moves:
