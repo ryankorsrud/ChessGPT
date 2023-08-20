@@ -18,8 +18,5 @@ class Square:
     '''
     def draw(self, screen):
         pygame.draw.rect(screen, self.colour, self.rect)
-        try:
-            if self.piece:
-                self.piece.draw(screen)
-        except:
-            print('whoops')
+        if self.piece:
+            self.piece.draw(screen)

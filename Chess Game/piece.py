@@ -26,6 +26,7 @@ class Piece:
 class Pawn(Piece):
     def __init__(self, colour, row, col, img_name, has_moved=False):
         super().__init__(colour, row, col, img_name, val=1)
+        self.dir = -1 if colour == 'white' else 1
         self.has_moved = has_moved
 
 class Bishop(Piece):
@@ -45,5 +46,6 @@ class Queen(Piece):
         super().__init__(colour, row, col, img_name, val=10)
 
 class King(Piece):
-    def __init__(self, colour, row, col, img_name):
+    def __init__(self, colour, row, col, img_name, castled=False):
         super().__init__(colour, row, col, img_name, val=10000)
+        self.castled = castled

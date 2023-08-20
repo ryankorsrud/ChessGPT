@@ -36,10 +36,9 @@ class Game:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 clicked_row = event.pos[1]//SQ_WIDTH
                 clicked_col = event.pos[0]//SQ_HEIGHT
-                if self.board.squares[clicked_row][clicked_col].piece: #checks if the square they clicked has a piece
-                    piece = self.board.squares[clicked_row][clicked_col].piece
-                    
-                    if piece.colour == self.players_turn: # checks if that piece belongs to the player who clicked it
+                if self.board.squares[clicked_row][clicked_col].piece: #checks if the square they clicked has a piece                    
+                    if self.board.squares[clicked_row][clicked_col].piece.colour == self.players_turn: # checks if that piece belongs to the player who clicked it
+                        piece = self.board.squares[clicked_row][clicked_col].piece
                         self.selected_piece_moves = self.board.get_moves(piece, clicked_row, clicked_col)
                         self.selected_piece = piece
 
@@ -48,6 +47,7 @@ class Game:
                 if self.selected_piece != None:
                     if move in self.selected_piece_moves:
                         self.board.move(self.selected_piece, move[0], move[1])
+                        self.players_turn = 'white' if self.players_turn == 'black' else 'black'
 
             # exits the game
             elif event.type == pygame.QUIT:
